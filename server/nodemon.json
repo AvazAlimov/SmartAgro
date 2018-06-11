@@ -2,6 +2,7 @@
     "env": {
         "MONGO_ATLAS_PASSWORD": "%40v%40zARS23",
         "JWT_KEY": "secret",
-        "PORT": 3000
+        "PORT": 3000,
+        "ADMIN_KEY": "$2y$12$F18oA5DbySBtqeXPdW1co.hgqmYS17dqTi079BhIJmvYV7ItFNfHG"
     }
 }

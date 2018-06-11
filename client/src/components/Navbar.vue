@@ -12,10 +12,10 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto" v-if="!isLogedIn">
-        <li class="nav-item" v-if="showLogin">
+        <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
         </li>
-        <li class="nav-item" v-if="showRegister">
+        <li class="nav-item">
           <a class="nav-link" href="/register">Register</a>
         </li>
       </ul>
@@ -65,7 +65,7 @@ export default {
     };
   },
   name: "Navbar",
-  props: ["showLogin", "showRegister", "showLogout"],
+  props: ["showLogout"],
   methods: {
     logout: function() {
       localStorage.removeItem("token");
@@ -106,6 +106,9 @@ export default {
       } else {
         vm.showLogin = vm.showRegister = true;
         vm.isLogedIn = false;
+        var banned_routes = ["Home"];
+        if (banned_routes.includes(this.$route.name))
+          this.$router.push({ name: "MainPage" });
       }
     },
     toggleStation: function() {
