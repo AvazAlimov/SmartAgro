@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Station = require("../models/station");
 const Data = require("../models/data");
 
 exports.insert_data = (req, res, next) => {
@@ -23,5 +22,13 @@ exports.insert_data = (req, res, next) => {
       res.status(500).json({
         error: err
       });
+    });
+};
+
+exports.get_data = (req, res, next) => {
+  Data.find()
+    .exec()
+    .then(datas => {
+      return res.status(200).json(datas);
     });
 };

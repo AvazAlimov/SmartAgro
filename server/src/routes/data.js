@@ -5,4 +5,6 @@ const DataController = require("../controllers/data");
 
 router.post("/", checkKey.write_key, DataController.insert_data);
 
+router.get("/", DataController.get_data);
+
 module.exports = router;
