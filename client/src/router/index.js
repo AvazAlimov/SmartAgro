@@ -41,6 +41,6 @@ export default new Router({
       path: "/adminhome",
       name: "AdminHome",
       component: AdminHome
-    },
+    }
   ]
 });
