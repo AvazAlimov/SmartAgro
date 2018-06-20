@@ -10,7 +10,8 @@ import AdminHome from "@/components/AdminHome";
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
+  base: "/static",
+  // mode: "history",
   routes: [
     {
       path: "/",

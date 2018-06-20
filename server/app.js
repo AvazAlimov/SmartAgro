@@ -5,7 +5,6 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const routes = require("./src/routes");
 
-
 mongoose.connect(
   "mongodb://avazalimov:" +
     process.env.MONGO_ATLAS_PASSWORD +
@@ -15,6 +14,7 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
+app.use(express.static(__dirname + "/../client/dist/"));
 app.use("/uploads", express.static("uploads"));
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: false }));

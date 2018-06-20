@@ -5,12 +5,12 @@
 
           <div class="sidebar text-center sticky-top shadow-sm">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" data-toggle="pill" href="#" role="tab"><i class="fa fa-home fa-lg" title="Dashboard"></i></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><i class="fa fa-database fa-lg" title="Station Data"></i></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><i class="fa fa-cloud fa-lg" title="Weather forecast"></i></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><i class="fa fa-leaf fa-lg" title="Disease models"></i></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><i class="fa fa-tint fa-lg" title="Soil moisture"></i></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><i class="fa fa-cog fa-lg" title="Station settings"></i></a>
+              <a class="nav-link active" data-toggle="pill" href="#" role="tab"><icon name="home" scale="1.5" title="Dashboard"></icon></a>
+              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="database" scale="1.5" title="Station Data"></icon></a>
+              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="cloud" scale="1.5" title="Weather Forecast"></icon></a>
+              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="leaf" scale="1.5" title="Disease models"></icon></a>
+              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="tint" scale="1.5" title="Soil moisture"></icon></a>
+              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="cog" scale="1.5" title="Station settings"></icon></a>
             </div>
           </div>
           
@@ -27,7 +27,7 @@
                   <input type="search" class="form-control form-control-sm" placeholder="search stations">
                   <div class="input-group-append">
                     <button type="button" class="btn btn-sm btn-outline-secondary">
-                      <i class="fa fa-search"></i>
+                      <icon name="search"></icon>
                     </button>
                   </div>
                 </div>

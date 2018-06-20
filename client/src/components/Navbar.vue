@@ -14,39 +14,36 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto" v-if="!isLogedIn">
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/register">Register</a>
-        </li> -->
         <router-link class="nav-link" :to="{ name: 'Login'}">Login</router-link>
         <router-link class="nav-link" to="/register">Register</router-link>
       </ul>
       <ul class="navbar-nav mr-auto" v-if="isLogedIn">
         <div class="dropdown">
             <a class="btn toggle btn-sm" href="#" role="button" id="dropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-user fa-lg"></i>
+              <icon name="user" scale="1.5"></icon>
             </a>
             <div class="dropdown-menu shadow-sm" aria-labelledby="dropdownProfile">
-              <a class="dropdown-item border-bottom mb-2" href="#">
-                <div class="media">
-                  <i class="fa fa-user-circle-o fa-2x mr-2 align-self-center"></i>
+              <router-link class="dropdown-item border-bottom mb-2" :to="{ name: 'Home'}">
+              <div class="media">
+                  <icon name="user-circle-o" scale="2" class="mr-2 align-self-center"></icon>
                   <div class="media-body pt-3">
                     <p>{{ userdata.username }}<br>{{ userdata.email }}</p>
                   </div>
-                </div></a>
-              <a class="dropdown-item" href="#"><i class="fa fa-plus-circle mr-3"></i>Add / Remove station</a>
-              <a class="dropdown-item" href="#"><i class="fa fa-cog mr-3"></i>Account settings</a>
-              <a class="dropdown-item" href="#"><i class="fa fa-key mr-3"></i>Licensing</a>
-              <a class="dropdown-item" href="#"><i class="fa fa-question-circle  mr-3"></i>Help</a>
-              <a class="dropdown-item" href="#"><i class="fa fa-shield  mr-3"></i>Privacy and Terms</a>
+                </div>
+              </router-link>
+              <a class="dropdown-item" href="#">
+                <icon name="plus-circle" class="mr-3"></icon> Add / Remove station</a>
+              <a class="dropdown-item" href="#">
+                <icon name="cog" class="mr-3"></icon> Account settings</a>
+              <a class="dropdown-item" href="#"><icon name="key" class="mr-3"></icon>Licensing</a>
+              <a class="dropdown-item" href="#"><icon name="question-circle" class="mr-3"></icon>Help</a>
+              <a class="dropdown-item" href="#"><icon name="shield" class="mr-3"></icon>Privacy and Terms</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" v-on:click="logout"><i class="fa fa-power-off mr-3"></i>Logout</a>
+              <a class="dropdown-item" href="#" v-on:click="logout"><icon name="power-off" class="mr-3"></icon>Logout</a>
             </div>
         </div>
         <a class="btn toggle btn-sm" id="station_toggle" href="#" role="button" v-on:click="toggleStation">
-          <i class="fa fa-wifi fa-lg"></i>
+          <icon name="wifi" scale="1.5"></icon>
         </a>
       </ul>
     </div>
@@ -130,5 +127,8 @@ export default {
 .toggle {
   background-color: transparent;
   color: gray;
+}
+icon{
+  margin: 10px;
 }
 </style>
