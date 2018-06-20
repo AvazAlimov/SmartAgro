@@ -1,18 +1,11 @@
 <template>
-<div>
-    <app-navbar/>
+  <div>
     <h1>Admin Home</h1>
-</div>
+  </div>
 </template>
 
 <script>
-import Navbar from "./AdminNavbar";
-
-export default {   
-    components: {
-        "app-navbar": Navbar
-    }
-}
+  export default {}
 </script>
 
 <style scoped>
