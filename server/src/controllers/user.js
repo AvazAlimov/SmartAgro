@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const Station = require("../models/station");
 
 exports.user_signup = (req, res, next) => {
   User.find({
@@ -88,6 +89,58 @@ exports.user_login = (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};
+
+exports.add_station = (req, res, next) => {
+  var userId = req.userData.userId;
+  Station.find({
+    r_key: req.body.r_key
+  })
+    .exec()
+    .then(stations => {
+      if (stations.length === 0) {
+        res.status(404).json({
+          message: "Station not found"
+        });
+      } else {
+        var station = stations[0];
+        if (station.users.indexOf(userId) > -1) {
+          res.status(400).json({
+            message: "Station exists"
+          });
+        } else {
+          station.users.push(userId);
+          station.save();
+          res.status(200).json({
+            message: "Station added"
+          });
+        }
+      }
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
+};
+
+exports.load_stations = (req, res, next) => {
+  var userId = req.userData.userId;
+  Station.find({
+    users: {
+      $in: [userId]
+    }
+  })
+    .select("r_key")
+    .exec()
+    .then(stations => {
+      res.status(200).json(stations);
+    })
+    .catch(err => {
       res.status(500).json({
         error: err
       });

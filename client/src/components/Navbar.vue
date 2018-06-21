@@ -17,8 +17,9 @@
         <router-link class="nav-link" :to="{ name: 'Login'}">Login</router-link>
         <router-link class="nav-link" to="/register">Register</router-link>
       </ul>
-      <ul class="navbar-nav mr-auto" v-if="isLogedIn">
-        <div class="dropdown">
+      
+      <ul class="navbar-nav mr-auto bg-white" v-if="isLogedIn">
+        <div class="dropdown text-center">
             <a class="btn toggle btn-sm" href="#" role="button" id="dropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <icon name="user" scale="1.5"></icon>
             </a>
@@ -31,7 +32,7 @@
                   </div>
                 </div>
               </router-link>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addStationModal">
                 <icon name="plus-circle" class="mr-3"></icon> Add / Remove station</a>
               <a class="dropdown-item" href="#">
                 <icon name="cog" class="mr-3"></icon> Account settings</a>
@@ -42,7 +43,7 @@
               <a class="dropdown-item" href="#" v-on:click="logout"><icon name="power-off" class="mr-3"></icon>Logout</a>
             </div>
         </div>
-        <a class="btn toggle btn-sm" id="station_toggle" href="#" role="button" v-on:click="toggleStation">
+        <a class="btn toggle btn-sm bg-white" id="station_toggle" href="#" role="button" v-on:click="toggleStation">
           <icon name="wifi" scale="1.5"></icon>
         </a>
       </ul>

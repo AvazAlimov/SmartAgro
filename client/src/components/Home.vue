@@ -17,33 +17,30 @@
           <div id="content">
             <div class="content">
               <div class="container-fluid m-3">
-
+                <line-chart></line-chart>
               </div>
             </div>
 
-            <div id="station_container" class="shadow">
-              <div class="container">
-                <div class="input-group mt-3">
-                  <input type="search" class="form-control form-control-sm" placeholder="search stations">
-                  <div class="input-group-append">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                      <icon name="search"></icon>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <station-list id="station_container" class="shadow"/>
+            
           </div>
+          <!-- Modals -->
+          <add-station/>
         </div>
 </template>
 
 <script>
 import Navbar from "./Navbar";
+import AddStation from "./UserControls/AddStation";
+import StationList from "./UserControls/StationList";
+import LineChart from "./UserControls/LineChart";
 
 export default {
   components: {
-    "app-navbar": Navbar
+    "app-navbar": Navbar,
+    "add-station": AddStation,
+    "station-list": StationList,
+    "line-chart": LineChart
   }
 };
 </script>

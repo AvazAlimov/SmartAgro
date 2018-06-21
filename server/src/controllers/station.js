@@ -25,7 +25,7 @@ exports.create_station = (req, res, next) => {
         });
         station
           .save()
-          .then(result => {
+          .then(() => {
             res.status(201).json({
               message: "Station created"
             });
@@ -37,5 +37,31 @@ exports.create_station = (req, res, next) => {
             });
           });
       }
+    });
+};
+
+exports.get_stations = (req, res, next) => {
+  Station.find()
+    .exec()
+    .then(stations => {
+      return res.status(200).json({ stations });
+    });
+};
+
+exports.delete_station = (req, res, next) => {
+  Station.find({
+    _id: req.params.id
+  })
+    .remove()
+    .exec()
+    .then(result => {
+      res.status(200).json({
+        message: "Station deleted"
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
     });
 };

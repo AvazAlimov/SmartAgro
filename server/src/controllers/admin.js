@@ -13,7 +13,7 @@ exports.admin_signup = (req, res, next) => {
         return res.status(409).json({
           message: "Login Exists"
         });
-      } else if(req.body.key === process.env.ADMIN_KEY){
+      } else if (req.body.key === process.env.ADMIN_KEY) {
         bcrypt.hash(req.body.password, 10, (err, hash) => {
           if (err) {
             return res.status(500).json({
