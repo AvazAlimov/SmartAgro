@@ -16,12 +16,14 @@
           
           <div id="content">
             <div class="content">
-              <div class="container-fluid m-3">
-                <line-chart></line-chart>
+              <div class="container-fluid mt-3">
+                <div class="card bg-white p-4">
+                  <line-chart :rkey="rkey"></line-chart>
+                </div>
               </div>
             </div>
 
-            <station-list id="station_container" class="shadow"/>
+            <station-list id="station_container" class="shadow closed"/>
             
           </div>
           <!-- Modals -->
@@ -36,6 +38,11 @@ import StationList from "./UserControls/StationList";
 import LineChart from "./UserControls/LineChart";
 
 export default {
+  data: function() {
+    return {
+      rkey: "aGZ8Le0wI7"
+    }
+  },
   components: {
     "app-navbar": Navbar,
     "add-station": AddStation,

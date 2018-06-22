@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Data = require("../models/data");
+const Station = require("../models/station");
 
 exports.insert_data = (req, res, next) => {
   const station = req.station;
@@ -30,5 +31,30 @@ exports.get_data = (req, res, next) => {
     .exec()
     .then(datas => {
       return res.status(200).json(datas);
+    });
+};
+
+exports.get_temperature = (req, res, next) => {
+  Station.find({
+    r_key: req.params.r_key
+  })
+    .exec()
+    .then(stations => {
+      if (stations.length === 0) {
+        res.status(404).json({
+          message: "Station not found"
+        });
+      } else {
+        let station = stations[0];
+        Data.find({
+          station: station._id
+        })
+          .sort({ $natural: -1 })
+          .limit(15)
+          .exec()
+          .then(data => {
+            res.status(200).json(data.reverse());
+          });
+      }
     });
 };
