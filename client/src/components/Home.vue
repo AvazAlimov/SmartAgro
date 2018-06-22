@@ -3,7 +3,7 @@
           <app-navbar :showLogout="true" class="sticky-top" style="grid-column: 1 / span 3">
           </app-navbar>
 
-          <div class="sidebar text-center sticky-top shadow-sm">
+          <div class="sidebar text-center shadow-sm">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
               <a class="nav-link active" data-toggle="pill" href="#" role="tab"><icon name="home" scale="1.5" title="Dashboard"></icon></a>
               <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="database" scale="1.5" title="Station Data"></icon></a>
@@ -46,7 +46,7 @@ export default {
   data: function() {
     return {
       rkey: "aGZ8Le0wI7"
-    }
+    };
   },
   components: {
     "app-navbar": Navbar,
@@ -70,7 +70,10 @@ export default {
   grid-template-rows: 80px auto;
 }
 .sidebar {
+  position: fixed;
+  margin-top: 80px;
   background-color: white !important;
+  height: 100%;
 }
 .nav-pills .nav-link {
   color: #666666;
