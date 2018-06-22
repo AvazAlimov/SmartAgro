@@ -18,7 +18,11 @@
             <div class="content">
               <div class="container-fluid mt-3">
                 <div class="card bg-white p-4">
-                  <line-chart :rkey="rkey"></line-chart>
+                  <line-chart-temperature :rkey="rkey"></line-chart-temperature>
+                </div>
+                <br>
+                <div class="card bg-white p-4">
+                  <line-chart-humidity :rkey="rkey"></line-chart-humidity>
                 </div>
               </div>
             </div>
@@ -35,7 +39,8 @@
 import Navbar from "./Navbar";
 import AddStation from "./UserControls/AddStation";
 import StationList from "./UserControls/StationList";
-import LineChart from "./UserControls/LineChart";
+import Temperature from "./UserControls/Temperature";
+import Humidity from "./UserControls/Humidity";
 
 export default {
   data: function() {
@@ -47,7 +52,8 @@ export default {
     "app-navbar": Navbar,
     "add-station": AddStation,
     "station-list": StationList,
-    "line-chart": LineChart
+    "line-chart-temperature": Temperature,
+    "line-chart-humidity": Humidity
   }
 };
 </script>
