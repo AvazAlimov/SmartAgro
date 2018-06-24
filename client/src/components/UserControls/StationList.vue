@@ -11,9 +11,9 @@
             </div>
         </div>
         <div class="list-group list-group-flush mt-3" v-for="s in stations" v-bind:key="s._id">
-            <a class="list-group-item list-group-item-action p-3">
+            <button class="list-group-item list-group-item-action p-3" v-on:click="$emit('setKey', s.r_key)">
                 <small><strong>Key:</strong> {{ s.r_key }}</small>
-            </a>
+            </button>
         </div>
     </div>
 </template>

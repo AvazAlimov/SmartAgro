@@ -18,20 +18,20 @@
             <div class="content">
               <div class="container-fluid mt-3">
                 <div class="card bg-white p-4">
-                  <line-chart-temperature :rkey="rkey"></line-chart-temperature>
+                  <line-chart-temperature :rkey="rkey" ref="temperature"></line-chart-temperature>
                 </div>
                 <br>
                 <div class="card bg-white p-4">
-                  <line-chart-humidity :rkey="rkey"></line-chart-humidity>
+                  <line-chart-humidity :rkey="rkey" ref="humidity"></line-chart-humidity>
                 </div>
               </div>
             </div>
 
-            <station-list id="station_container" class="shadow closed"/>
+            <station-list id="station_container" class="shadow closed" ref="stations" v-on:setKey="setKey"/>
             
           </div>
           <!-- Modals -->
-          <add-station/>
+          <add-station v-on:addStation="addStation"/>
         </div>
 </template>
 
@@ -45,7 +45,7 @@ import Humidity from "./UserControls/Humidity";
 export default {
   data: function() {
     return {
-      rkey: "aGZ8Le0wI7"
+      rkey: ""
     };
   },
   components: {
@@ -54,6 +54,16 @@ export default {
     "station-list": StationList,
     "line-chart-temperature": Temperature,
     "line-chart-humidity": Humidity
+  },
+  methods: {
+    addStation: function() {
+      this.$refs.stations.loadStations();
+    },
+    setKey: function(value) {
+      this.rkey = value;
+      this.$refs.temperature.loadData();
+      this.$refs.humidity.loadData();
+    }
   }
 };
 </script>

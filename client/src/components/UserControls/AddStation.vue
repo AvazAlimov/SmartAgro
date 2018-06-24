@@ -53,6 +53,7 @@ export default {
         .then(response => {
           if (response.status === 200) {
             this.error_message = response.data.message;
+            $emit('addStation');
           }
         })
         .catch(error => {

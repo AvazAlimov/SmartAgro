@@ -36,6 +36,7 @@ export default {
   methods: {
     loadData() {
       var vm = this;
+      if (vm.rkey === "") return;
       DataService.loadData(vm.rkey, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
@@ -65,9 +66,7 @@ export default {
               minute: "2-digit"
             };
             for (var i = 0; i < response.data.length; i++) {
-              datacollection.datasets[0].data.push(
-                response.data[i].humidity
-              );
+              datacollection.datasets[0].data.push(response.data[i].humidity);
               datacollection.labels.push(
                 new Date(response.data[i].created_at).toLocaleTimeString(
                   "ru",

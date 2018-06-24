@@ -36,6 +36,7 @@ export default {
   methods: {
     loadData() {
       var vm = this;
+      if (vm.rkey === "") return;
       DataService.loadData(vm.rkey, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
