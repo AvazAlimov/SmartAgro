@@ -1,6 +1,7 @@
 const Station = require("../models/station");
 
 exports.write_key = (req, res, next) => {
+  console.log(req.body);
   Station.find({
     w_key: req.body.w_key
   })

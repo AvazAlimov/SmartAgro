@@ -9,20 +9,19 @@ exports.upload_image = (req, res, next) => {
     .exec()
     .then(stations => {
       if (stations.length === 0) {
-        res.status(404).json({
-          message: "Station not found"
+        return res.status(401).json({
+          message: "Key not found"
         });
       } else {
         var station = stations[0];
-        var image = new Image({
+        new Image({
           _id: new mongoose.Types.ObjectId(),
           station: station._id,
           filename: req.file.path,
           created_at: new Date()
-        });
-        image
+        })
           .save()
-          .then(result => {
+          .then(() => {
             res.status(201).json({
               message: "Image uploaded"
             });

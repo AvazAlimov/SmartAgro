@@ -3,8 +3,6 @@ const router = express.Router();
 const checkKey = require("../middleware/check-key");
 const checkAuth = require("../middleware/check-auth");
 const DataController = require("../controllers/data");
-const multer = require("multer");
-var upload = multer({ dest: './uploads/' })
 
 router.post("/", checkKey.write_key, DataController.insert_data);
 
