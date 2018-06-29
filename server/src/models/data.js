@@ -13,6 +13,12 @@ const dataSchema = mongoose.Schema({
   humidity: {
     type: Number
   },
+  wind_direction: {
+    type: Number
+  },
+  wind_speed: {
+    type: Number
+  },
   created_at: {
       type: Date,
       required: true

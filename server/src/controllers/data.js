@@ -9,6 +9,8 @@ exports.insert_data = (req, res, next) => {
     station: station._id,
     temperature: req.body.temperature,
     humidity: req.body.humidity,
+    wind_direction: req.body.wind_direction,
+    wind_speed: req.body.wind_speed,
     created_at: new Date()
   });
   data
