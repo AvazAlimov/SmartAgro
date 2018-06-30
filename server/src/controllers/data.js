@@ -11,6 +11,8 @@ exports.insert_data = (req, res, next) => {
     humidity: req.body.humidity,
     wind_direction: req.body.wind_direction,
     wind_speed: req.body.wind_speed,
+    rain_unit: req.body.rain_unit,
+    status: req.body.status,
     created_at: new Date()
   });
   data

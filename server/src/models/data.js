@@ -19,6 +19,12 @@ const dataSchema = mongoose.Schema({
   wind_speed: {
     type: Number
   },
+  rain_unit: {
+    type: Number
+  },
+  status: {
+    type: Number
+  },
   created_at: {
       type: Date,
       required: true
