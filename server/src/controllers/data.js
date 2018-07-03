@@ -52,7 +52,132 @@ exports.get_temperature = (req, res, next) => {
         let station = stations[0];
         Data.find({
           station: station._id
-        })
+        }, { temperature: 1, _id: 0 })
+          .sort({ $natural: -1 })
+          .limit(15)
+          .exec()
+          .then(data => {
+            res.status(200).json(data.reverse());
+          });
+      }
+    });
+};
+
+exports.get_humidity = (req, res, next) => {
+  Station.find({
+    r_key: req.params.r_key
+  })
+    .exec()
+    .then(stations => {
+      if (stations.length === 0) {
+        res.status(404).json({
+          message: "Station not found"
+        });
+      } else {
+        let station = stations[0];
+        Data.find({
+          station: station._id
+        }, { humidity: 1, _id: 0 })
+          .sort({ $natural: -1 })
+          .limit(15)
+          .exec()
+          .then(data => {
+            res.status(200).json(data.reverse());
+          });
+      }
+    });
+};
+
+exports.get_windspeed = (req, res, next) => {
+  Station.find({
+    r_key: req.params.r_key
+  })
+    .exec()
+    .then(stations => {
+      if (stations.length === 0) {
+        res.status(404).json({
+          message: "Station not found"
+        });
+      } else {
+        let station = stations[0];
+        Data.find({
+          station: station._id
+        }, { wind_speed: 1, _id: 0 })
+          .sort({ $natural: -1 })
+          .limit(15)
+          .exec()
+          .then(data => {
+            res.status(200).json(data.reverse());
+          });
+      }
+    });
+};
+
+exports.get_winddirection = (req, res, next) => {
+  Station.find({
+    r_key: req.params.r_key
+  })
+    .exec()
+    .then(stations => {
+      if (stations.length === 0) {
+        res.status(404).json({
+          message: "Station not found"
+        });
+      } else {
+        let station = stations[0];
+        Data.find({
+          station: station._id
+        }, { wind_direction: 1, _id: 0 })
+          .sort({ $natural: -1 })
+          .limit(15)
+          .exec()
+          .then(data => {
+            res.status(200).json(data.reverse());
+          });
+      }
+    });
+};
+
+exports.get_rainunit = (req, res, next) => {
+  Station.find({
+    r_key: req.params.r_key
+  })
+    .exec()
+    .then(stations => {
+      if (stations.length === 0) {
+        res.status(404).json({
+          message: "Station not found"
+        });
+      } else {
+        let station = stations[0];
+        Data.find({
+          station: station._id
+        }, { rain_unit: 1, _id: 0 })
+          .sort({ $natural: -1 })
+          .limit(15)
+          .exec()
+          .then(data => {
+            res.status(200).json(data.reverse());
+          });
+      }
+    });
+};
+
+exports.get_status = (req, res, next) => {
+  Station.find({
+    r_key: req.params.r_key
+  })
+    .exec()
+    .then(stations => {
+      if (stations.length === 0) {
+        res.status(404).json({
+          message: "Station not found"
+        });
+      } else {
+        let station = stations[0];
+        Data.find({
+          station: station._id
+        }, { status: 1, _id: 0 })
           .sort({ $natural: -1 })
           .limit(15)
           .exec()

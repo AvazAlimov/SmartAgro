@@ -14,7 +14,7 @@ export default {
             {
               scaleLabel: {
                 display: true,
-                labelString: "Celcius (°C)"
+                labelString: "Speed (m/s)"
               },
               ticks: {
                 beginAtZero: true
@@ -41,7 +41,7 @@ export default {
     loadData() {
       var vm = this;
       if (vm.rkey === "") return;
-      DataService.loadTemperature(vm.rkey, {
+      DataService.loadWindSpeed(vm.rkey, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
         }
@@ -52,9 +52,9 @@ export default {
               labels: [],
               datasets: [
                 {
-                  label: "Temperature",
+                  label: "Wind Speed",
                   fill: false,
-                  borderColor: "red",
+                  borderColor: "blue",
                   pointBackgroundColor: "white",
                   borderWidth: 3,
                   pointBorderColor: "#249EBF",
@@ -71,7 +71,7 @@ export default {
             };
             for (var i = 0; i < response.data.length; i++) {
               datacollection.datasets[0].data.push(
-                response.data[i].temperature
+                response.data[i].wind_speed
               );
               datacollection.labels.push(
                 new Date(response.data[i].created_at).toLocaleTimeString(

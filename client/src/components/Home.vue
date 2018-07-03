@@ -1,118 +1,267 @@
 <template>
-        <div class="grid-container">
-          <app-navbar :showLogout="true" class="sticky-top" style="grid-column: 1 / span 3">
-          </app-navbar>
-
-          <div class="sidebar text-center shadow-sm">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link active" data-toggle="pill" href="#" role="tab"><icon name="home" scale="1.5" title="Dashboard"></icon></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="database" scale="1.5" title="Station Data"></icon></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="cloud" scale="1.5" title="Weather Forecast"></icon></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="leaf" scale="1.5" title="Disease models"></icon></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="tint" scale="1.5" title="Soil moisture"></icon></a>
-              <a class="nav-link" data-toggle="pill" href="#" role="tab"><icon name="cog" scale="1.5" title="Station settings"></icon></a>
+        <div class="admin">
+          <header class="admin__header border">
+            <router-link class="logo" :to="{ name: 'Home'}">
+                <img src="../assets/logo.png" class="mr-2" width="50" alt=""> SmartAgro
+            </router-link>
+            <div class="toolbar">
+              <station-list class="m-1" ref="stations" v-on:setKey="setKey" style="line-height: 70px;"/>
+              <button class="btn rounded rounded--primary" data-toggle="modal" data-target="#addStationModal">Add/Remove Station</button>
             </div>
-          </div>
+          </header>
+
+          <nav class="admin__nav border-right">
+            <div class="nav flex-column nav-pills" style="width: 100%;">
+              <a class="nav-link active pl-4" data-toggle="pill" href="#" role="tab" v-on:click="setSection('dashboard')"><icon name="home" class="icon mr-2" scale="1.2"></icon> Dashboard</a>
+              <a class="nav-link pl-4" data-toggle="pill" href="#" role="tab" v-on:click="setSection('data')"><icon name="database" class="icon mr-2" scale="1.2"></icon> Station Data</a>
+              <a class="nav-link pl-4" data-toggle="pill" href="#" role="tab" v-on:click="setSection('picture')"><icon name="image" class="icon mr-2" scale="1.2"></icon> Pictures</a>
+              <div class="dropdown-divider"></div>
+              <a class="nav-link pl-4" href="#" v-on:click="logout"><icon name="power-off" class="icon mr-2" scale="1.2"></icon> Logout</a>
+            </div>
+          </nav>
           
-          <div id="content">
-            <div class="content">
-              <div class="container-fluid mt-3">
+          <main class="admin__main">
+            <div class="row" v-if="section === 'dashboard'">
+              <div class="col-md-6 mb-4">
+                <h1>Dashboard</h1>
+              </div>
+            </div>
+
+            <div class="row" v-if="section === 'data'">
+              <div class="col-md-6 mb-4">
                 <div class="card bg-white p-4">
                   <line-chart-temperature :rkey="rkey" ref="temperature"></line-chart-temperature>
                 </div>
-                <br>
+              </div>
+
+              <div class="col-md-6 mb-4">
                 <div class="card bg-white p-4">
                   <line-chart-humidity :rkey="rkey" ref="humidity"></line-chart-humidity>
                 </div>
               </div>
+              
+              <div class="col-md-6 mb-4">
+                <div class="card bg-white p-4">
+                  <line-chart-windspeed :rkey="rkey" ref="windspeed"></line-chart-windspeed>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-4">
+                <div class="card bg-white p-4">
+                  <line-chart-winddirection :rkey="rkey" ref="winddirection"></line-chart-winddirection>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-4">
+                <div class="card bg-white p-4">
+                  <line-chart-rainunit :rkey="rkey" ref="rainunit"></line-chart-rainunit>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-4">
+                <div class="card bg-white p-4">
+                  <line-chart-status :rkey="rkey" ref="status"></line-chart-status>
+                </div>
+              </div>
             </div>
 
-            <station-list id="station_container" class="shadow closed" ref="stations" v-on:setKey="setKey"/>
-            
-          </div>
+            <div class="row" v-if="section === 'picture'">
+                <pictures :rkey="rkey" ref="picture"></pictures>
+            </div>
+          </main>
+
           <!-- Modals -->
           <add-station v-on:addStation="addStation"/>
         </div>
 </template>
 
 <script>
-import Navbar from "./Navbar";
+import UserService from "../services/UserService.js";
 import AddStation from "./UserControls/AddStation";
 import StationList from "./UserControls/StationList";
 import Temperature from "./UserControls/Temperature";
 import Humidity from "./UserControls/Humidity";
+import WindSpeed from "./UserControls/WindSpeed";
+import RainUnit from "./UserControls/RainUnit";
+import Status from "./UserControls/Status";
+import WindDirection from "./UserControls/WindDirection";
+import Picture from "./UserControls/Picture";
 
 export default {
   data: function() {
     return {
+      section: "dashboard",
       rkey: ""
     };
   },
   components: {
-    "app-navbar": Navbar,
     "add-station": AddStation,
     "station-list": StationList,
     "line-chart-temperature": Temperature,
-    "line-chart-humidity": Humidity
+    "line-chart-humidity": Humidity,
+    "line-chart-windspeed": WindSpeed,
+    "line-chart-rainunit": RainUnit,
+    "line-chart-status": Status,
+    "line-chart-winddirection": WindDirection,
+    "pictures": Picture
   },
   methods: {
+    setSection: function(value) {
+      this.section = value;
+    },
+    logout: function() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userdata");
+      this.$router.push({ name: "MainPage" });
+    },
     addStation: function() {
       this.$refs.stations.loadStations();
     },
     setKey: function(value) {
       this.rkey = value;
-      this.$refs.temperature.loadData();
-      this.$refs.humidity.loadData();
+      if(this.section === "data") {
+        this.$refs.temperature.loadData();
+        this.$refs.humidity.loadData();
+        this.$refs.windspeed.loadData();
+        this.$refs.winddirection.loadData();
+        this.$refs.rainunit.loadData();
+        this.$refs.status.loadData();
+      } else if(this.section === "picture") {
+        this.$refs.picture.loadImages();
+      }
+    },
+    check: function() {
+      var vm = this;
+      if (localStorage.getItem("token") !== null) {
+        UserService.check({
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+        })
+          .then(response => {
+            if ((vm.isLogedIn = response.status === 200)) {
+              var banned_routes = ["Login", "Register", "MainPage"];
+              if (banned_routes.includes(this.$route.name))
+                this.$router.push({ name: "Home" });
+            }
+          })
+          .catch(error => {
+            if (error.response.status === 401) {
+              var banned_routes = ["Home"];
+              if (banned_routes.includes(this.$route.name))
+                this.$router.push({ name: "MainPage" });
+            }
+          });
+      } else {
+        var banned_routes = ["Home"];
+        if (banned_routes.includes(this.$route.name))
+          this.$router.push({ name: "MainPage" });
+      }
     }
+  },
+  created() {
+    this.check();
   }
 };
 </script>
 
-<style>
-#app,
-.grid-container {
-  width: 100% !important;
-  height: 100% !important;
+<style lang="scss">
+$admin-header-height: 70px;
+$admin-nav-width: 200px;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-.grid-container {
+.admin {
+  --spacing: 1rem;
+  display: flex;
+  flex-wrap: wrap;
   display: grid;
-  grid-template-columns: 60px fit-content(100%);
-  grid-template-rows: 80px auto;
+  height: 100vh;
+  grid-template-rows: $admin-header-height 1fr;
+  grid-template-columns: $admin-nav-width 1fr;
+  grid-template-areas: "header header" "nav    main";
 }
-.sidebar {
-  position: fixed;
-  margin-top: 80px;
-  background-color: white !important;
-  height: 100%;
+.admin__header {
+  display: flex;
+  flex-basis: 100%;
+  grid-area: header;
+  height: $admin-header-height;
+  background-color: white;
+  position: relative;
+}
+.admin__nav {
+  grid-area: nav;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: white;
+}
+.admin__main {
+  flex: 1;
+  grid-area: main;
+  padding: var(--spacing);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background-color: #f4f7fa;
+}
+@media screen and (min-width: 48rem) {
+  .admin {
+    --spacing: 2rem;
+  }
+}
+.logo {
+  display: flex;
+  flex: 0 0 $admin-nav-width;
+  height: $admin-header-height;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0;
+  color: #000;
+  font-size: 1rem;
+}
+.logo:hover {
+  color: #000;
+  text-decoration: none;
+}
+.menu {
+  list-style-type: none;
+  padding: 0;
 }
 .nav-pills .nav-link {
-  color: #666666;
+  font-size: 1.1em;
+  color: #555;
 }
 .nav-pills .nav-link.active {
   border-radius: 0;
-  background-color: green;
+  background-color: #56bf89;
 }
-#content {
-  display: grid;
-  grid-template-columns: auto fit-content(100%);
-  grid-column: 2 / span 2;
+.toolbar {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing);
 }
-.content {
-  width: 100% !important;
+.rounded {
+  display: inline-block;
+  border-radius: 5em !important;
+  border: 0;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+
+  &--primary {
+    color: #fff;
+    background-color: #56bf89 !important;
+  }
 }
-#station_container {
-  position: fixed;
-  right: 0;
-  height: 100%;
-  background-color: white;
-  width: 250px !important;
-  transform: translate3d(0, 0px, 0px);
-  -webkit-transform: translate3d(0, 0px, 0px);
-  -webkit-transition: all 0.5s ease 0s;
-  transition: all 0.5s ease 0s;
-}
-#station_container.closed {
-  transform: translate3d(100%, 0px, 0px);
-  -webkit-transform: translate3d(100%, 0px, 0px);
+.icon {
+  display: inline;
+  display: inline-table;
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>

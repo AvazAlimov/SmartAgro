@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
 
-    <app-navbar :showLogin="true" :showRegister="true"/>
+    <app-navbar/>
 
     <div class="jumbotron jumbotron-fluid">
       <div class="container">

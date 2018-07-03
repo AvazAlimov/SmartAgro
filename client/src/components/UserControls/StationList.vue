@@ -1,20 +1,8 @@
 <template>
-    <div>
-        <div class="container">
-            <div class="input-group mt-3">
-                <input type="search" class="form-control form-control-sm" placeholder="search stations">
-                <div class="input-group-append">
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                    <icon name="search"></icon>
-                </button>
-                </div>
-            </div>
-        </div>
-        <div class="list-group list-group-flush mt-3" v-for="s in stations" v-bind:key="s._id">
-            <button class="list-group-item list-group-item-action p-3" v-on:click="$emit('setKey', s.r_key)">
-                <small><strong>Key:</strong> {{ s.r_key }}</small>
-            </button>
-        </div>
+    <div class="row">
+      <select class="custom-select" v-for="s in stations" v-bind:key="s._id">
+        <option :value="s.r_key" v-on:click="$emit('setKey', s.r_key)">{{ s.r_key }}</option>
+      </select>
     </div>
 </template>
 
@@ -38,6 +26,8 @@ export default {
         .then(response => {
           if (response.status === 200) {
             vm.stations = response.data;
+            if(vm.stations.length > 0)
+              this.$emit('setKey', vm.stations[0].r_key);
           }
         })
         .catch(error => {
@@ -45,8 +35,8 @@ export default {
         });
     }
   },
-  created() {
-    this.loadStations();
+  created(value) {
+    this.loadStations(value);
   }
 };
 </script>

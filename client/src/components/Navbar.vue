@@ -10,42 +10,11 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="container">
-
     </div>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto" v-if="!isLogedIn">
+      <ul class="navbar-nav mr-auto">
         <router-link class="nav-link" :to="{ name: 'Login'}">Login</router-link>
         <router-link class="nav-link" to="/register">Register</router-link>
-      </ul>
-      
-      <ul class="navbar-nav mr-auto bg-white" v-if="isLogedIn">
-        <div class="dropdown text-center">
-            <a class="btn toggle btn-sm" href="#" role="button" id="dropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <icon name="user" scale="1.5"></icon>
-            </a>
-            <div class="dropdown-menu shadow-sm" aria-labelledby="dropdownProfile">
-              <router-link class="dropdown-item border-bottom mb-2" :to="{ name: 'Home'}">
-              <div class="media">
-                  <icon name="user-circle-o" scale="2" class="mr-2 align-self-center"></icon>
-                  <div class="media-body pt-3">
-                    <p>{{ userdata.username }}<br>{{ userdata.email }}</p>
-                  </div>
-                </div>
-              </router-link>
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#addStationModal">
-                <icon name="plus-circle" class="mr-3"></icon> Add / Remove station</a>
-              <a class="dropdown-item" href="#">
-                <icon name="cog" class="mr-3"></icon> Account settings</a>
-              <a class="dropdown-item" href="#"><icon name="key" class="mr-3"></icon>Licensing</a>
-              <a class="dropdown-item" href="#"><icon name="question-circle" class="mr-3"></icon>Help</a>
-              <a class="dropdown-item" href="#"><icon name="shield" class="mr-3"></icon>Privacy and Terms</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" v-on:click="logout"><icon name="power-off" class="mr-3"></icon>Logout</a>
-            </div>
-        </div>
-        <a class="btn toggle btn-sm bg-white" id="station_toggle" href="#" role="button" v-on:click="toggleStation">
-          <icon name="wifi" scale="1.5"></icon>
-        </a>
       </ul>
     </div>
   </div>
@@ -66,17 +35,7 @@ export default {
       }
     };
   },
-  name: "Navbar",
-  props: ["showLogout"],
   methods: {
-    logout: function() {
-      localStorage.removeItem("token");
-      localStorage.removeItem("userdata");
-      this.check();
-      var banned_routes = ["Home"];
-      if (banned_routes.includes(this.$route.name))
-        this.$router.push({ name: "MainPage" });
-    },
     check: function() {
       var vm = this;
       if (localStorage.getItem("token") !== null) {
@@ -93,9 +52,9 @@ export default {
                   localStorage.getItem("userdata")
                 ).email;
               }
-              var banned_routes = ["Login", "Register"];
+              var banned_routes = ["Login", "Register", "MainPage"];
               if (banned_routes.includes(this.$route.name))
-                this.$router.push({ name: "MainPage" });
+                this.$router.push({ name: "Home" });
             }
           })
           .catch(error => {
@@ -112,10 +71,6 @@ export default {
         if (banned_routes.includes(this.$route.name))
           this.$router.push({ name: "MainPage" });
       }
-    },
-    toggleStation: function() {
-      var stations = document.getElementById("station_container");
-      stations.classList.toggle("closed");
     }
   },
   created() {
@@ -125,11 +80,7 @@ export default {
 </script>
 
 <style scoped>
-.toggle {
-  background-color: transparent;
-  color: gray;
-}
-icon{
+icon {
   margin: 10px;
 }
 </style>

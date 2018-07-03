@@ -14,4 +14,6 @@ const upload = multer({ storage: storage });
 
 router.post("/", upload.single("image"), ImageController.upload_image);
 
+router.get("/:r_key", ImageController.get_images);
+
 module.exports = router;

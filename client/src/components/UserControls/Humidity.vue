@@ -12,6 +12,10 @@ export default {
         scales: {
           yAxes: [
             {
+              scaleLabel: {
+                display: true,
+                labelString: "Percentage (%)"
+              },
               ticks: {
                 beginAtZero: true
               },
@@ -37,7 +41,7 @@ export default {
     loadData() {
       var vm = this;
       if (vm.rkey === "") return;
-      DataService.loadData(vm.rkey, {
+      DataService.loadHumidity(vm.rkey, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
         }

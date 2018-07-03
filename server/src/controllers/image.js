@@ -34,3 +34,30 @@ exports.upload_image = (req, res, next) => {
       }
     });
 };
+
+exports.get_images = (req, res, next) => {
+  Station.find({
+    r_key: req.params.r_key
+  })
+    .exec()
+    .then(stations => {
+      if (stations.length === 0) {
+        return res.status(401).json({
+          message: "Key not found"
+        });
+      } else {
+        var station = stations[0];
+        Image.find({
+          station: station._id
+        }, { filename: 1, created_at: 1, _id: 0 })
+          .then(images => {
+            res.status(200).json(images);
+          })
+          .catch(err => {
+            res.status(500).json({
+              error: err
+            });
+          });
+      }
+    });
+};
