@@ -52,7 +52,7 @@ exports.get_temperature = (req, res, next) => {
         let station = stations[0];
         Data.find({
           station: station._id
-        }, { temperature: 1, _id: 0 })
+        }, { temperature: 1, created_at: 1, _id: 0 })
           .sort({ $natural: -1 })
           .limit(15)
           .exec()
@@ -77,7 +77,7 @@ exports.get_humidity = (req, res, next) => {
         let station = stations[0];
         Data.find({
           station: station._id
-        }, { humidity: 1, _id: 0 })
+        }, { humidity: 1, created_at: 1, _id: 0 })
           .sort({ $natural: -1 })
           .limit(15)
           .exec()
@@ -102,7 +102,7 @@ exports.get_windspeed = (req, res, next) => {
         let station = stations[0];
         Data.find({
           station: station._id
-        }, { wind_speed: 1, _id: 0 })
+        }, { wind_speed: 1, created_at: 1, _id: 0 })
           .sort({ $natural: -1 })
           .limit(15)
           .exec()
@@ -127,7 +127,7 @@ exports.get_winddirection = (req, res, next) => {
         let station = stations[0];
         Data.find({
           station: station._id
-        }, { wind_direction: 1, _id: 0 })
+        }, { wind_direction: 1, created_at: 1, _id: 0 })
           .sort({ $natural: -1 })
           .limit(15)
           .exec()
@@ -152,7 +152,7 @@ exports.get_rainunit = (req, res, next) => {
         let station = stations[0];
         Data.find({
           station: station._id
-        }, { rain_unit: 1, _id: 0 })
+        }, { rain_unit: 1, created_at: 1, _id: 0 })
           .sort({ $natural: -1 })
           .limit(15)
           .exec()
@@ -177,7 +177,7 @@ exports.get_status = (req, res, next) => {
         let station = stations[0];
         Data.find({
           station: station._id
-        }, { status: 1, _id: 0 })
+        }, { status: 1, created_at: 1, _id: 0 })
           .sort({ $natural: -1 })
           .limit(15)
           .exec()
