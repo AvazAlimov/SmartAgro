@@ -6,12 +6,12 @@ import App from "./App";
 import router from "./router";
 import jQuery from "jquery";
 import popper from "popper.js/dist/umd/popper.js";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 let bootstrap = require("bootstrap");
 
 import "vue-awesome/icons";
 import Icon from "vue-awesome/components/Icon";
+
 Vue.component("icon", Icon);
 
 Vue.config.productionTip = false;

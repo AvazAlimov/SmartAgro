@@ -20,7 +20,9 @@
     "vue-awesome": "^2.3.7",
     "vue-chartjs": "^3.3.2",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vue2-google-maps": "^0.10.0",
+    "vuex": "^3.0.1",
+    "ymaps": "^0.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
