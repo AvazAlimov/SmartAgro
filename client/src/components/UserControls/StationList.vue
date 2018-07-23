@@ -19,9 +19,7 @@ export default {
     loadStations() {
       var vm = this;
       UserService.loadStations({
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token")
-        }
+        
       })
         .then(response => {
           if (response.status === 200) {

@@ -63,14 +63,14 @@ export default {
                 }
               ]
             };
-            var options = {
+            const options = {
               year: "numeric",
               month: "numeric",
               day: "numeric",
               hour: "2-digit",
               minute: "2-digit"
             };
-            for (var i = 0; i < response.data.length; i++) {
+            for (let i = 0; i < response.data.length; i++) {
               datacollection.datasets[0].data.push(response.data[i].status);
               datacollection.labels.push(
                 new Date(response.data[i].created_at).toLocaleTimeString(

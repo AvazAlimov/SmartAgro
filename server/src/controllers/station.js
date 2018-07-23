@@ -2,66 +2,68 @@
 const Station = require("../models/station");
 
 exports.create_station = (req, res, next) => {
-  Station.find({
-    $or: [
-      {
-        w_key: req.body.w_key
-      },
-      {
-        r_key: req.body.r_key
-      }
-    ]
-  })
-    .exec()
-    .then(stations => {
-      if (stations.length > 0) {
-        res.status(409).json({
-          message: "Read or Write key exists"
+    Station.find({
+        $or: [
+            {
+                w_key: req.body.w_key
+            },
+            {
+                r_key: req.body.r_key
+            }
+        ]
+    })
+        .exec()
+        .then(stations => {
+            if (stations.length > 0) {
+                res.status(409).json({
+                    message: "Read or Write key exists"
+                });
+            } else {
+                const station = new Station({
+                    w_key: req.body.w_key,
+                    r_key: req.body.r_key,
+                    data_interval: 5,
+                    image_interval: 15,
+                });
+                station
+                    .save()
+                    .then(() => {
+                        res.status(201).json({
+                            message: "Station created"
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json({
+                            error: err
+                        });
+                    });
+            }
         });
-      } else {
-        const station = new Station({
-          w_key: req.body.w_key,
-          r_key: req.body.r_key
-        });
-        station
-          .save()
-          .then(() => {
-            res.status(201).json({
-              message: "Station created"
-            });
-          })
-          .catch(err => {
-            console.log(err);
-            res.status(500).json({
-              error: err
-            });
-          });
-      }
-    });
 };
 
 exports.get_stations = (req, res, next) => {
-  Station.find()
-    .exec()
-    .then(stations => {
-      return res.status(200).json({ stations });
-    });
+    Station.find()
+        .exec()
+        .then(stations => {
+            return res.status(200).json({stations});
+        });
 };
 
 exports.delete_station = (req, res, next) => {
-  Station.find({
-    _id: req.params.id
-  })
-    .remove()
-    .exec()
-    .then(result => {
-      res.status(200).json({
-        message: "Station deleted"
-      });
+    Station.find({
+        _id: req.params.id
     })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });
+        .remove()
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: "Station deleted"
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
 };
