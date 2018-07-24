@@ -10,4 +10,6 @@ router.get("/", DataController.get_data_temp);
 
 router.get("/:r_key/:s_date/:e_date", checkAuth, DataController.get_data);
 
+router.get("/download/:r_key/:s_date/:e_date", checkAuth, DataController.download_data);
+
 module.exports = router;

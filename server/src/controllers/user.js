@@ -88,7 +88,6 @@ exports.user_login = (req, res, next) => {
 };
 
 exports.add_station = (req, res, next) => {
-    console.log(req.body.r_key);
     const userId = req.userData.userId;
     Station.find({
         r_key: req.body.r_key

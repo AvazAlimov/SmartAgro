@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Data = require("../models/data");
 const Station = require("../models/station");
+const json2xls = require('json2xls');
+const fs = require("fs");
+const path = require('path');
 
 exports.insert_data = (req, res, next) => {
     const station = req.station;
@@ -60,7 +63,7 @@ exports.get_data = (req, res, next) => {
                             }
                         }
                     ]
-                }, {_id: 0})
+                }, {_id: 0, station: 0})
                     .sort({$natural: -1})
                     // .limit(50)
                     .exec()
@@ -69,4 +72,46 @@ exports.get_data = (req, res, next) => {
                     })
             }
         })
+};
+
+exports.download_data = (req, res, next) => {
+    Station.find({
+        r_key: req.params.r_key
+    })
+        .exec()
+        .then(stations => {
+            if (stations.length === 0) {
+                res.status(404).json({
+                    message: "Station not found"
+                });
+            } else {
+                let station = stations[0];
+                Data.find({
+                    $and: [
+                        {station: station._id},
+                        {
+                            created_at: {
+                                "$gte": req.params.s_date,
+                                "$lte": req.params.e_date
+                            }
+                        }
+                    ]
+                }, {_id: 0})
+                    .sort({$natural: -1})
+                    .exec()
+                    .then(data => {
+                        if (data.length !== 0) {
+                            const xls = json2xls(data, {
+                                fields: ["created_at", "temperature", "humidity", "wind_direction", "wind_speed", "rain_unit", "status"]
+                            });
+                            fs.writeFileSync("./uploads/data.xlsx", xls, 'binary');
+                            res.download(path.join(__dirname, "../../uploads/data.xlsx"));
+                        } else {
+                            res.status(404).json({
+                                message: "No available data"
+                            });
+                        }
+                    })
+            }
+        });
 };
