@@ -15,6 +15,7 @@ mongoose.Promise = global.Promise;
 const app = express();
 
 app.use(express.static(__dirname + "/../client/dist/"));
+app.use("/admin", express.static(__dirname + "/../client/dist/"));
 app.use("/uploads", express.static("uploads"));
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({extended: false}));
