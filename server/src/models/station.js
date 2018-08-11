@@ -1,6 +1,18 @@
 const mongoose = require("mongoose");
 
 const stationSchema = mongoose.Schema({
+    name: {
+        type: String,
+        require: true
+    },
+    longitude: {
+        type: Number,
+        require: true
+    },
+    latitude: {
+        type: Number,
+        require: true
+    },
     w_key: {
         //f5OmXi9WpT
         type: String,

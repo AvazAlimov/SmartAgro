@@ -1,4 +1,3 @@
-// const mongoose = require("mongoose");
 const Station = require("../models/station");
 
 exports.create_station = (req, res, next) => {
@@ -20,6 +19,9 @@ exports.create_station = (req, res, next) => {
                 });
             } else {
                 const station = new Station({
+                    name: req.body.name,
+                    longitude: req.body.longitude,
+                    latitude: req.body.latitude,
                     w_key: req.body.w_key,
                     r_key: req.body.r_key,
                     data_interval: 5,
@@ -56,7 +58,7 @@ exports.delete_station = (req, res, next) => {
     })
         .remove()
         .exec()
-        .then(result => {
+        .then(() => {
             res.status(200).json({
                 message: "Station deleted"
             });
