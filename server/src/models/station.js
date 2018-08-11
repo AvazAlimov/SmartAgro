@@ -29,7 +29,7 @@ const stationSchema = mongoose.Schema({
         type: Number //5, 10, 20, 30, 60, 120
     },
     image_interval: {
-        type: Number //15, 30, 60, 90, 120, 180
+        type: String //15, 30, 60, 90, 120, 180
     },
     users: [
         {

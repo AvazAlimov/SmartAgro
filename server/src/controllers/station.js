@@ -48,7 +48,7 @@ exports.get_stations = (req, res, next) => {
     Station.find()
         .exec()
         .then(stations => {
-            return res.status(200).json({stations});
+            return res.status(200).json(stations);
         });
 };
 
