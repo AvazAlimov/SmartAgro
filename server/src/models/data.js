@@ -25,6 +25,21 @@ const dataSchema = mongoose.Schema({
     status: {
         type: Number
     },
+    wind_speed_max: {
+        type: Number
+    },
+    soil_temp: {
+        type: Number
+    },
+    soil_wat: {
+        type: Number
+    },
+    soil_ec: {
+        type: Number
+    },
+    sun_intensivity: {
+        type: Number
+    },
     created_at: {
         type: Date,
         required: true

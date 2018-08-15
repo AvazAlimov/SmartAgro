@@ -7,17 +7,24 @@ const path = require('path');
 
 exports.insert_data = (req, res, next) => {
     const station = req.station;
+    const fields = req.body.data.split(';');
     const data = new Data({
         _id: new mongoose.Types.ObjectId(),
         station: station._id,
-        temperature: req.body.temperature,
-        humidity: req.body.humidity,
-        wind_direction: req.body.wind_direction,
-        wind_speed: req.body.wind_speed,
-        rain_unit: req.body.rain_unit,
-        status: req.body.status,
+        temperature: fields[0],
+        humidity: fields[1],
+        wind_direction: fields[2],
+        wind_speed: fields[3],
+        wind_speed_max: fields[4],
+        rain_unit: fields[5],
+        status: fields[6],
+        soil_temp: fields[7],
+        soil_wat: fields[8],
+        soil_ec: fields[9],
+        sun_intensivity: fields[10],
         created_at: new Date()
     });
+
     data
         .save()
         .then(() => {
