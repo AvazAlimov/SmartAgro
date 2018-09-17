@@ -13,7 +13,7 @@ exports.upload_image = (req, res, next) => {
                     message: "Key not found"
                 });
             } else {
-                var station = stations[0];
+                const station = stations[0];
                 new Image({
                     _id: new mongoose.Types.ObjectId(),
                     station: station._id,
@@ -23,7 +23,7 @@ exports.upload_image = (req, res, next) => {
                     .save()
                     .then(() => {
                         res.status(201).json({
-                            message: "Image uploaded"
+                            interval: station.image_interval
                         });
                     })
                     .catch(err => {
